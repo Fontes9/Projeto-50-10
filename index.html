@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ent'Artes - Portal de Gestão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Ent'Artes Manager</div>
+        <nav>
+            <button class="nav-btn active" onclick="switchTab('coaching')">Coaching</button>
+            <button class="nav-btn" onclick="switchTab('schedule')">Mapa de Aulas</button>
+            <button class="nav-btn" onclick="switchTab('inventory')">Inventário</button>
+        </nav>
+    </header>
+
+    <main>
+        <div id="coaching" class="section-view active">
+            
+            <div class="status-bar">
+                <div class="info-box" style="margin-bottom:0; flex-grow: 1;">
+                    <h3>🎯 Gestão de Espaços</h3>
+                    <p>Faturação automatizada e validação de 48h.</p>
+                </div>
+                <div class="studio-status-card">
+                    <small>Estado Atual</small>
+                    <div id="currentStatus" class="status-badge">Verificar...</div>
+                </div>
+            </div>
+            <br>
+
+            <div class="card">
+                <h2>Nova Requisição</h2>
+                <form id="coachingForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Estúdio</label>
+                            <select id="studioSelect" required>
+                                <option value="">Selecione...</option>
+                                <option value="1">Estúdio 1 (Grande)</option>
+                                <option value="2">Estúdio 2</option>
+                                <option value="3">Estúdio 3</option>
+                                <option value="4">Estúdio 4</option>
+                                <option value="5">Estúdio 5</option>
+                                <option value="6">Estúdio 6</option>
+                                <option value="7">Estúdio 7</option>
+                                <option value="8">Estúdio 8</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipo de Professor</label>
+                            <select id="coachType" onchange="calculatePrice()">
+                                <option value="internal">Coach Interno (36€/h)</option>
+                                <option value="external">Externo (45€/h)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Duração</label>
+                            <select id="duration" onchange="calculatePrice()">
+                                <option value="30">30 Minutos</option>
+                                <option value="60" selected>60 Minutos</option>
+                                <option value="90">90 Minutos</option>
+                                <option value="120">120 Minutos</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="price-area">
+                        Estimativa: <span id="priceDisplay">36.00</span>€
+                    </div>
+
+                    <button type="submit" class="btn-primary">Solicitar Agendamento</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Estado das Requisições</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Estúdio</th>
+                                <th>Coach</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestTable">
+                            <tr>
+                                <td>18/02/2026</td>
+                                <td>Estúdio 3</td>
+                                <td>Prof. Ana</td>
+                                <td><span class="status-badge status-pending">Pendente</span></td>
+                            </tr>
+                            <tr>
+                                <td>15/02/2026</td>
+                                <td>Estúdio 1</td>
+                                <td>Externo</td>
+                                <td><span class="status-badge status-approved">Faturado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="schedule" class="section-view">
+            <div class="info-box">
+                <h3>📅 Mapa Semanal de Aulas</h3>
+                <p>Horário: Seg-Sex (14:00-21:30) | Sáb (08:30-20:00)</p>
+            </div>
+
+            <div class="card" style="overflow-x: auto;">
+                <div class="timetable">
+                    <div class="time-header"></div>
+                    <div class="day-header" data-day="1">Segunda</div>
+                    <div class="day-header" data-day="2">Terça</div>
+                    <div class="day-header" data-day="3">Quarta</div>
+                    <div class="day-header" data-day="4">Quinta</div>
+                    <div class="day-header" data-day="5">Sexta</div>
+                    <div class="day-header" data-day="6">Sábado</div>
+
+                    <div class="time-label" style="grid-row: 2">08:30</div>
+                    <div class="time-label" style="grid-row: 3">09:00</div>
+                    <div class="time-label" style="grid-row: 4">09:30</div>
+                    <div class="time-label" style="grid-row: 5">10:00</div>
+                    <div class="time-label" style="grid-row: 6">10:30</div>
+                    <div class="time-label" style="grid-row: 7">11:00</div>
+                    <div class="time-label" style="grid-row: 8">11:30</div>
+                    <div class="time-label" style="grid-row: 9">12:00</div>
+                    <div class="time-label" style="grid-row: 10">12:30</div>
+                    <div class="time-label" style="grid-row: 11">13:00</div>
+                    <div class="time-label" style="grid-row: 12">13:30</div>
+                    <div class="time-label" style="grid-row: 13">14:00</div>
+                    <div class="time-label" style="grid-row: 14">14:30</div>
+                    <div class="time-label" style="grid-row: 15">15:00</div>
+                    <div class="time-label" style="grid-row: 16">15:30</div>
+                    <div class="time-label" style="grid-row: 17">16:00</div>
+                    <div class="time-label" style="grid-row: 18">16:30</div>
+                    <div class="time-label" style="grid-row: 19">17:00</div>
+                    <div class="time-label" style="grid-row: 20">17:30</div>
+                    <div class="time-label" style="grid-row: 21">18:00</div>
+                    <div class="time-label" style="grid-row: 22">18:30</div>
+                    <div class="time-label" style="grid-row: 23">19:00</div>
+                    <div class="time-label" style="grid-row: 24">19:30</div>
+                    <div class="time-label" style="grid-row: 25">20:00</div>
+                    <div class="time-label" style="grid-row: 26">20:30</div>
+                    <div class="time-label" style="grid-row: 27">21:00</div>
+                    <div class="time-label" style="grid-row: 28">21:30</div>
+
+                    <div class="closed-block" style="grid-column: 2 / span 5; grid-row: 2 / span 11;">
+                        <span>Encerrado (Manhã)</span>
+                    </div>
+
+                    <div class="closed-block" style="grid-column: 7; grid-row: 25 / span 3;">
+                        <span>Encerrado</span>
+                    </div>
+
+                    <div class="class-block" style="grid-column: 2; grid-row: 20 / span 2; background-color: #fce4ec; border-left-color: #e91e63;">
+                        <span class="class-title">Children Ballet</span>
+                        <span class="class-teacher">Ana Luís Gomes</span>
+                        <span class="class-room">Est. 1</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 2; grid-row: 22 / span 3; background-color: #e8faff; border-left-color: #00bcd4;">
+                        <span class="class-title">Ballet Clássico</span>
+                        <span class="class-teacher">Diana Sá Carneiro</span>
+                        <span class="class-room">Est. 1</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 2; grid-row: 25 / span 3; background-color: #ede7f6; border-left-color: #673ab7;">
+                        <span class="class-title">Ballet Adultos</span>
+                        <span class="class-teacher">Prof. A Definir</span>
+                        <span class="class-room">Est. 1</span>
+                    </div>
+
+                    <div class="class-block" style="grid-column: 3; grid-row: 20 / span 2; background-color: #fff8e1; border-left-color: #ffc107;">
+                        <span class="class-title">Acrodance</span>
+                        <span class="class-teacher">Ana Luís Gomes</span>
+                        <span class="class-room">Est. 3</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 3; grid-row: 21 / span 3; background-color: #ffebee; border-left-color: #f44336;">
+                        <span class="class-title">Competição/Repertório</span>
+                        <span class="class-teacher">Maria Borges</span>
+                        <span class="class-room">Est. 1</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 3; grid-row: 24 / span 3; background-color: #e8f5e9; border-left-color: #4caf50;">
+                        <span class="class-title">Dança Contemporânea</span>
+                        <span class="class-teacher">Filipe Narciso</span>
+                        <span class="class-room">Est. 4</span>
+                    </div>
+
+                    <div class="class-block" style="grid-column: 4; grid-row: 19 / span 2; background-color: #e3f2fd; border-left-color: #2196f3;">
+                        <span class="class-title">Aula para Rapazes</span>
+                        <span class="class-teacher">Bárbara de Magalhães</span>
+                        <span class="class-room">Est. 5</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 4; grid-row: 21 / span 2; background-color: #e8eaf6; border-left-color: #3f51b5;">
+                        <span class="class-title">Ginástica Acrobática</span>
+                        <span class="class-teacher">Duvan Gimenez</span>
+                        <span class="class-room">Est. 3</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 4; grid-row: 26 / span 2; background-color: #fff3e0; border-left-color: #ff9800;">
+                        <span class="class-title">Jazz Adultos</span>
+                        <span class="class-teacher">Edson Nascimento</span>
+                        <span class="class-room">Est. 2</span>
+                    </div>
+
+                    <div class="class-block" style="grid-column: 5; grid-row: 20 / span 3; background-color: #fbe9e7; border-left-color: #ff5722;">
+                        <span class="class-title">Teatro Musical</span>
+                        <span class="class-teacher">Ana Luís Gomes</span>
+                        <span class="class-room">Est. 6</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 5; grid-row: 24 / span 3; background-color: #e8faff; border-left-color: #00bcd4;">
+                        <span class="class-title">Ballet Clássico</span>
+                        <span class="class-teacher">Rodolfo Iocca</span>
+                        <span class="class-room">Est. 1</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 5; grid-row: 25 / span 2; background-color: #e0f2f1; border-left-color: #009688;">
+                        <span class="class-title">Body Balance</span>
+                        <span class="class-teacher">Edson Nascimento</span>
+                        <span class="class-room">Est. 2</span>
+                    </div>
+
+                    <div class="class-block" style="grid-column: 6; grid-row: 20 / span 3; background-color: #f3e5f5; border-left-color: #9c27b0;">
+                        <span class="class-title">Comercial & Fusion</span>
+                        <span class="class-teacher">Ana Luís Gomes</span>
+                        <span class="class-room">Est. 5</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 6; grid-row: 23 / span 3; background-color: #fffde7; border-left-color: #fbc02d;">
+                        <span class="class-title">Sevilhanas</span>
+                        <span class="class-teacher">Carol Corrêa</span>
+                        <span class="class-room">Est. 6</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 6; grid-row: 24 / span 3; background-color: #e8f5e9; border-left-color: #4caf50;">
+                        <span class="class-title">Dança Contemp. Adultos</span>
+                        <span class="class-teacher">Filipe Narciso</span>
+                        <span class="class-room">Est. 4</span>
+                    </div>
+
+                    <div class="class-block" style="grid-column: 7; grid-row: 3 / span 2; background-color: #fce4ec; border-left-color: #e91e63;">
+                        <span class="class-title">Children Ballet</span>
+                        <span class="class-teacher">Natália Azevedo</span>
+                        <span class="class-room">Est. 1</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 7; grid-row: 5 / span 3; background-color: #f3e5f5; border-left-color: #9c27b0;">
+                        <span class="class-title">Royal Academy Dance</span>
+                        <span class="class-teacher">Bárbara de Magalhães</span>
+                        <span class="class-room">Est. 1</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 7; grid-row: 15 / span 3; background-color: #e8faff; border-left-color: #00bcd4;">
+                        <span class="class-title">Ballet Clássico</span>
+                        <span class="class-teacher">Manu Gomis</span>
+                        <span class="class-room">Est. 2</span>
+                    </div>
+                    <div class="class-block" style="grid-column: 7; grid-row: 21 / span 3; background-color: #e8f5e9; border-left-color: #4caf50;">
+                        <span class="class-title">Dança Contemporânea</span>
+                        <span class="class-teacher">Sara Vilas boas</span>
+                        <span class="class-room">Est. 4</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="inventory" class="section-view">
+            <div class="inventory-header">
+                <div>
+                    <h3>👗 Acervo Digital</h3>
+                    <p>Comunidade de troca e aluguer de figurinos.</p>
+                </div>
+                <button class="btn-primary" onclick="alert('Funcionalidade de Upload de nova peça para a comunidade')">+ Anunciar Peça</button>
+            </div>
+
+            <div class="inventory-grid">
+                <div class="item-card">
+                    <div class="price-tag sale">Venda: 15€</div>
+                    <div class="item-img">IMG Cisne</div>
+                    <div class="item-details">
+                        <h3>Tutu Branco</h3>
+                        <p class="meta">Tam M - Usado 1x</p>
+                        <p><strong>Vendedor:</strong> Mãe da Joana</p>
+                        <button class="btn-outline">Contactar</button>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <div class="price-tag rent">Aluguer: 5€</div>
+                    <div class="item-img">IMG Leque</div>
+                    <div class="item-details">
+                        <h3>Leque Espanhol</h3>
+                        <p class="meta">Acervo Escola</p>
+                        <p><strong>Dono:</strong> Ent'Artes</p>
+                        <button class="btn-outline">Requisitar</button>
+                    </div>
+                </div>
+
+                <div class="item-card">
+                    <div class="price-tag sale">Venda: 25€</div>
+                    <div class="item-img">IMG Sapatos</div>
+                    <div class="item-details">
+                        <h3>Sapatos Flamenco</h3>
+                        <p class="meta">Tam 37</p>
+                        <p><strong>Vendedor:</strong> Pedro</p>
+                        <button class="btn-outline">Contactar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
