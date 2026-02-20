@@ -12,5 +12,5 @@
 | 33222   | Tiago Barroso Fontes|
 | 31553   | Vitor Daniel Costa Moreira|
 
-****[Link Marcação de Reuniões](https://docs.google.com/spreadsheets/d/1cNqsofkvsYwQ07qQgf7_qgByrmv2Yk62aFtWXOHQYrc/edit?usp=sharing)**
+**[Link Marcação de Reuniões](https://docs.google.com/spreadsheets/d/1cNqsofkvsYwQ07qQgf7_qgByrmv2Yk62aFtWXOHQYrc/edit?usp=sharing)**
 ---
