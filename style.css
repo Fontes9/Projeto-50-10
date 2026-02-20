@@ -1,3 +1,6 @@
+/* =========================================
+   VARIÁVEIS GERAIS E LAYOUT BASE
+   ========================================= */
 :root {
     --primary: #8e44ad;
     --primary-dark: #732d91;
@@ -17,9 +20,120 @@ body {
     padding-bottom: 50px;
 }
 
-/* Header & Nav - FUNDO BRANCO */
+/* =========================================
+   ESTILOS DA PÁGINA DE LOGIN & REGISTO
+   ========================================= */
+
+/* REMOVER O SCROLL DO LOGIN */
+body.login-page {
+    padding-bottom: 0;
+    overflow: hidden; 
+}
+
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -2;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: -1;
+}
+
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box; 
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 400px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.auth-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-logo img {
+    max-height: 65px;
+    width: auto;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #ddd;
+}
+
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #888;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: 0.3s;
+}
+
+.auth-tab:hover {
+    color: var(--primary);
+}
+
+.auth-tab.active {
+    border-bottom-color: var(--primary);
+    color: var(--primary);
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+    animation: fadeIn 0.4s;
+}
+
+.auth-form .form-group {
+    text-align: left;
+}
+
+/* Se o ecrã for muito pequeno, permite scroll para não cortar botões */
+@media (max-height: 700px) {
+    body.login-page {
+        overflow-y: auto;
+    }
+}
+
+/* =========================================
+   ESTILOS DO PORTAL / DASHBOARD
+   ========================================= */
+
+/* Header & Nav */
 header {
-    background: white; /* Fundo branco como na imagem */
+    background: white; 
     padding: 1rem 2rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     display: flex;
@@ -43,12 +157,12 @@ nav button {
     font-size: 1rem;
     cursor: pointer;
     border-bottom: 3px solid transparent;
-    color: var(--secondary); /* Texto escuro para ver no fundo branco */
+    color: var(--secondary); 
     transition: 0.3s;
 }
 
 nav button:hover {
-    color: var(--primary); /* Cor de destaque ao passar o rato */
+    color: var(--primary); 
 }
 
 nav button.active {
@@ -57,7 +171,7 @@ nav button.active {
     font-weight: bold;
 }
 
-/* Layout Core */
+/* Layout Principal do Portal */
 main {
     max-width: 1000px;
     margin: 2rem auto;
@@ -128,7 +242,7 @@ main {
 .status-approved { background: #d4edda; color: #155724; }
 .status-closed { background: #f8d7da; color: #721c24; }
 
-/* Forms */
+/* Formulários Gerais */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -139,6 +253,7 @@ label { display: block; margin-bottom: 5px; font-weight: 600; }
 select, input {
     width: 100%; padding: 10px;
     border: 1px solid #ddd; border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .btn-primary {
@@ -146,6 +261,10 @@ select, input {
     border: none; padding: 12px 24px;
     border-radius: 5px; cursor: pointer;
     margin-top: 1rem; font-weight: bold;
+    transition: 0.3s;
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
 }
 
 .price-area {
@@ -154,12 +273,12 @@ select, input {
 }
 .price-area span { color: var(--primary); font-weight: bold; }
 
-/* Table */
+/* Tabela */
 table { width: 100%; border-collapse: collapse; text-align: left; }
 th { background: #f8f9fa; padding: 12px; }
 td { padding: 12px; border-bottom: 1px solid #eee; }
 
-/* --- TIMETABLE GRID --- */
+/* --- TIMETABLE GRID (Mapa de Aulas) --- */
 .timetable {
     display: grid;
     grid-template-columns: 50px repeat(6, minmax(130px, 1fr));
@@ -227,7 +346,7 @@ td { padding: 12px; border-bottom: 1px solid #eee; }
 .class-room { font-size: 0.7rem; color: #666; }
 
 
-/* --- INVENTORY GRID --- */
+/* --- INVENTÁRIO DIGITAL --- */
 .inventory-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -269,7 +388,7 @@ td { padding: 12px; border-bottom: 1px solid #eee; }
 }
 .btn-outline:hover { background: var(--primary); color: white; }
 
-/* Mobile */
+/* Responsividade (Telemóveis) */
 @media (max-width: 600px) {
     header { flex-direction: column; gap: 10px; }
     .status-bar { flex-direction: column; }
